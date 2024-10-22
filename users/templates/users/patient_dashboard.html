@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Welcome to Your Dashboard, {{ user.first_name }}!</h2>
+
+    <!-- Grid layout for cards -->
+    <div class="row">
+
+        <!-- Test Results Card -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title text-primary"><i class="fas fa-vials"></i> Test Results</h4>
+                    <p class="card-text">Check your latest medical test results below:</p>
+
+                    {% if test_results %}
+                        <ul class="list-group">
+                            {% for result in test_results %}
+                                <li class="list-group-item">
+                                    <strong>{{ result.test_name }}</strong>
+                                    <span class="badge bg-info">{{ result.date_taken|date:"F j, Y" }}</span>
+                                    <p>{{ result.result_summary }}</p>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-muted">No test results available at this time.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Upcoming Appointments Card -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title text-success"><i class="fas fa-calendar-alt"></i> Upcoming Appointments</h4>
+                    <p class="card-text">Manage your upcoming appointments:</p>
+
+                    {% if upcoming_appointments %}
+                        <ul class="list-group">
+                            {% for appointment in upcoming_appointments %}
+                                <li class="list-group-item">
+                                    <strong>{{ appointment.date|date:"F j, Y" }} at {{ appointment.time|time:"H:i" }}</strong>
+                                    <p>Doctor: {{ appointment.doctor_name }}</p>
+                                    <p>Notes: {{ appointment.notes }}</p>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-muted">You have no upcoming appointments.</p>
+                    {% endif %}
+
+                    <a href="{% url 'book-appointment' %}" class="btn btn-outline-primary mt-3"><i class="fas fa-plus"></i> Book New Appointment</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Add more features (e.g., medical history, prescriptions, etc.) -->
+    <div class="row mt-4">
+        <!-- Example of another card for prescriptions -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title text-warning"><i class="fas fa-prescription"></i> Prescriptions</h4>
+                    <p class="card-text">Review your current prescriptions:</p>
+                    <p class="text-muted">No prescriptions available.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Example of another card for medical history -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title text-danger"><i class="fas fa-notes-medical"></i> Medical History</h4>
+                    <p class="card-text">View your past medical history:</p>
+                    <p class="text-muted">No medical history records available.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Admin Dashboard</h1>
+
+<div>
+    <h3>Statistics</h3>
+    <p>Total Patients: {{ total_patients }}</p>
+    <p>Total Doctors: {{ total_doctors }}</p>
+</div>
+
+<div>
+    <h3>Charts</h3>
+    <canvas id="patientsChart"></canvas>
+</div>
+
+<div>
+    <h3>Main Menu</h3>
+    <ul>
+        <li><a href="{% url 'add-patient' %}">Add Patient</a></li>
+        <li><a href="{% url 'add-doctor' %}">Add Doctor</a></li>
+        <li><a href="{% url 'doctor-dashboard' %}">Doctors Dashboard</a></li>
+    </ul>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('patientsChart').getContext('2d');
+    var patientsChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Patients In', 'Patients Out'],
+            datasets: [{
+                label: 'Patient Status',
+                data: [{{ patients_in }}, {{ patients_out }}],
+                backgroundColor: ['#36A2EB', '#FF6384']
+            }]
+        }
+    });
+</script>
+{% endblock %}

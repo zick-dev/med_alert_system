@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Patient Registration
+{% endblock %}
+
+{% block content %}
+    <div class="register-container">
+        <h2>Patient Registration</h2>
+
+        <!-- Display messages (success, error, etc.) -->
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert {% if message.tags %} alert-{{ message.tags }}{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <div>
+                <label for="{{ form.full_name.id_for_label }}">Full Name:</label>
+                {{ form.full_name }}
+                {{ form.full_name.errors }}
+            </div>
+            <div>
+                <label for="{{ form.email.id_for_label }}">Email:</label>
+                {{ form.email }}
+                {{ form.email.errors }}
+            </div>
+            <div>
+                <label for="{{ form.password1.id_for_label }}">Password:</label>
+                {{ form.password1 }}
+                {{ form.password1.errors }}
+            </div>
+            <div>
+                <label for="{{ form.password2.id_for_label }}">Password Confirmation:</label>
+                {{ form.password2 }}
+                {{ form.password2.errors }}
+            </div>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+    </div>
+{% endblock %}

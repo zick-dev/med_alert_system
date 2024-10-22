@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <section>
+            <h2>Hello, {{ user.username }}!</h2>
+            <p>Welcome to your dashboard.</p>
+
+            <div class="dashboard-info">
+                <p>This is where you can view your medical results, alerts, and notifications.</p>
+            </div>
+
+            <div class="actions">
+                <a href="#">View Medical Alerts</a>
+                <a href="#">Update Profile</a>
+            </div>
+        </section>
+    </div>
+{% endblock %}

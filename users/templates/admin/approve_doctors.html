@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2 class="mb-4">Pending Doctor Approvals</h2>
+
+        {% if unapproved_doctors %}
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Approve</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for doctor in unapproved_doctors %}
+                        <tr>
+                            <td>{{ doctor.user.first_name }} {{ doctor.user.last_name }}</td>
+                            <td>{{ doctor.user.email }}</td>
+                            <td>
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="user_id" value="{{ doctor.user.id }}">
+                                    <button type="submit" class="btn btn-success">Approve</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-muted">No doctors awaiting approval at this time.</p>
+        {% endif %}
+    </div>
+{% endblock %}

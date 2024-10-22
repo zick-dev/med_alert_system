@@ -1,0 +1,22 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+<h1>Welcome to the Admin Dashboard</h1>
+
+<!-- Canvas element for the pie chart -->
+<canvas id="patientsChart"></canvas>
+
+<!-- Include Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Include the custom chart script AFTER Chart.js -->
+<script src="{% static 'js/admin_chart.js' %}"></script>
+
+<script>
+    // Defining the data to be used in the chart (coming from Django context)
+    const patients_in = {{ patients_in }};
+    const patients_out = {{ patients_out }};
+</script>
+
+{% endblock %}
